@@ -16,39 +16,40 @@ if __name__ == '__main__':
 
     if currentUser :
         while(True):
-            print("What do you want to do?\nSelect C: To check account\nSelect E: To enter a new Register\nAny other letter or number for exit")
+            #Clear screen 
+            print("What do you want to do?\nSelect 1: To check account\nSelect 2: To enter a new Register\nSelect 3: To Edit a Register\nAny other letter or number for exit")
             FirstOptionSelected = input()
-            if FirstOptionSelected == 'C':
+            if FirstOptionSelected == '1':
                 totalExpenses = 0
                 totalIncome = 0
                 Flows = SelectAllRegistersFromFlowTable()
-                print(Flows)
-                for flow in Flows:
-                    if flow[2] == 0:
-                        totalIncome+=flow[1]
-                    else: totalExpenses +=flow[1]
         
-                    # flow[3] = flow[3].strftime('%m-%d-%Y')
-                    print(f"{flow[0]:<30} {flow[1]:<25} {flow[2]:<20} {flow[3].strftime('%m-%d-%Y'):<20}")
-                print('_____________________________________________________________________')
+                print(f"{'ID':<40} {'TITLE':<35} {'AMOUNT ($)':<20} {'IS EXPENSE':<20} {'DATE':<20}\n")
+
+                for flow in Flows:
+                    if flow[3] == 0:
+                        totalIncome+=flow[2]
+                    else: totalExpenses +=flow[2]
+                    print(f"\n{flow[0]:<40} {flow[1]:<35} {flow[2]:<20} {flow[3]:<20} {flow[4].strftime('%m-%d-%Y'):<20}")
+                print('_'*140)
                 print(f'\n\nTotal Expenses: {totalExpenses}\nTotal Income: {totalIncome}')
-                print('_________________________________')
                 totalFlow = totalIncome - totalExpenses
+                print('______________________________________')
                 print(f'\nTotal Flow: {round(totalFlow,2)}')
                 print('\n\n\n')
-            if FirstOptionSelected == 'E':
+            if FirstOptionSelected == '2':
                 FlowTitle = input('Title: ')
                 FlowAmount = float(input('Amount: '))
                 FlowDescription = input('Description: ')
                 DateOption = input('Date: Do you want to enter todays date? Y/N: ')
-                if DateOption == 'Y':
+                if DateOption.upper() == 'Y':
                     FlowDate = currentDate
                 else:
                     FlowDate = input("Date ('MM-DD-YYYY): ")
                 isExpenseOption = input('Is a Expense? Y/N: ')
-                if isExpenseOption == 'Y':
+                if isExpenseOption.upper() == 'Y':
                     FlowisExpense = 'True'
-                elif isExpenseOption == 'N': FlowisExpense='False'
+                elif isExpenseOption.upper() == 'N': FlowisExpense='False'
 
                 print("\n\n\nCheck all the data:\n")
                 print(f"User: {user_id} == {user_username}\nTitle: {FlowTitle}\nAmount = ${FlowAmount}\nDate: {FlowDate}\nDescription: {FlowDescription}\nisExpense: {FlowisExpense}")
