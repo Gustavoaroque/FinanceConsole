@@ -22,16 +22,19 @@ if __name__ == '__main__':
                 totalExpenses = 0
                 totalIncome = 0
                 Flows = SelectAllRegistersFromFlowTable()
+                print(Flows)
                 for flow in Flows:
                     if flow[2] == 0:
                         totalIncome+=flow[1]
                     else: totalExpenses +=flow[1]
-                    print("{:<30} {:<25} {:<20}".format(*flow))
+        
+                    # flow[3] = flow[3].strftime('%m-%d-%Y')
+                    print(f"{flow[0]:<30} {flow[1]:<25} {flow[2]:<20} {flow[3].strftime('%m-%d-%Y'):<20}")
                 print('_____________________________________________________________________')
                 print(f'\n\nTotal Expenses: {totalExpenses}\nTotal Income: {totalIncome}')
                 print('_________________________________')
                 totalFlow = totalIncome - totalExpenses
-                print(f'\nTotal Flow: {totalFlow}')
+                print(f'\nTotal Flow: {round(totalFlow,2)}')
                 print('\n\n\n')
             if FirstOptionSelected == 'E':
                 FlowTitle = input('Title: ')

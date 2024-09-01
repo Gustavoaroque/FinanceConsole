@@ -4,6 +4,7 @@ import psycopg2
 db_params = {
     'dbname': 'Expenses_Register',
     'user': 'postgres',
+    'password': 'Marcelomanda2020',
     'host': 'localhost',
     'port': '5432'
 }
@@ -31,7 +32,7 @@ def SelectAllRegistersFromFlowTable():
     try:
         conn = psycopg2.connect(**db_params)
         cursor = conn.cursor()
-        query = 'SELECT public."Flow"."Flow_Title", public."Flow"."Flow_amount",public."Flow"."Flow_isExpense" FROM public."Flow";'
+        query = 'SELECT public."Flow"."Flow_Title", public."Flow"."Flow_amount",public."Flow"."Flow_isExpense", public."Flow"."Flow_Created" FROM public."Flow";'
         cursor.execute(query)
         result = cursor.fetchall()
         return result
