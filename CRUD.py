@@ -4,7 +4,7 @@ import psycopg2
 db_params = {
     'dbname': 'Expenses_Register',
     'user': 'postgres',
-
+    'password': 'Marcelomanda2020',
     'host': 'localhost',
     'port': '5432'
 }
@@ -51,8 +51,7 @@ def SearchForUser(user,password):
         query = 'SELECT * FROM public."Users" WHERE public."Users"."User_Username" = ' + "'" + user + "';"
         cursor.execute(query)
         result = cursor.fetchall()
-        return result[0
-                      ]
+        return result[0]
     except Exception as e :
         print(f"ERROR: {e} ")
         return None
@@ -62,5 +61,39 @@ def SearchForUser(user,password):
         if conn:
             conn.close()
 
+def SearchFlow(user,id):
+    try:
+        conn = psycopg2.connect(**db_params)
+        cursor = conn.cursor()
+        query = 'SELECT * FROM public."Flow" WHERE public."Flow"."Flow_ID" = ' + "'" + id + "';" 
+        cursor.execute(query)
+        result = cursor.fetchall()
+        return result[0]
+    except Exception as e:
+        print(f"error : {e}")
+        
+    finally:
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
+
+def UpdateFlow(id,content):
+    try:
+        conn = psycopg2.connect(**db_params)
+        cursor = conn.cursor()
+        query = 'UPDATE public."Flow" SET "Flow_Title" = ' + f"'{content[0]}' ," + f' "Flow_amount" = {content[1]}, "Flow_isExpense" = ' + f"'{content[2]}', " +  '"Flow_Created" =' + f"'{content[3].strftime('%m-%d-%Y')}', " + '"Flow_Updated" = ' + f"'{content[4].strftime('%m-%d-%Y')}' WHERE " + 'public."Flow"."Flow_ID" = ' + f"'{id}' ;" 
+        print(query)
+        cursor.execute(query)
+        conn.commit()
+        print("Updated")
+    except Exception as e:
+        print(f"Error {e}")
+    
+    finally:
+        if conn: conn.close()
+        if cursor : cursor.close()
+        
+# SearchFlow('id','de8fd116-82b5-4d92-90a9-0b9aad562922')
 
 # InsertRegisterIntoFlowTable('Pool',30.0,'08-08-2024','08-08-2024','Playing pool after work','6cd25856-9a49-4a39-b9bb-3448c216c74c','True')
