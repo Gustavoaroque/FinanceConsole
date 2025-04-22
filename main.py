@@ -1,200 +1,210 @@
 
-from Database import InsertNewCar,InsertNewCarService, InsertNewSubscription,InserCheck,InsertFlow,GetAllFlow,UpdateFlow, GetAllSubs, GetAllChecks, InsertCard, InsertCategory,GetAllCards,GetAllCategories
+# from Database import InsertNewCar,InsertNewCarService, InsertNewSubscription,InserCheck,InsertFlow,GetAllFlow,UpdateFlow, GetAllSubs, GetAllChecks, InsertCard, InsertCategory,GetAllCards,GetAllCategories
 from tabulate import tabulate
 from datetime import date
 import os 
 import uuid 
-
+from dotenv import load_dotenv
+import os
 from Database import DatabaseManager
-def test():
-    getListCat = GetAllCategories()
-    arr = []
-    for Cat in getListCat:
-        print(Cat[1])
-        arr.append(Cat[1])
-    CatSelection = input("")
-    if CatSelection in arr:
-        print("True")
-    else: print("False")
+from pathlib import Path
 
-def AddTransaction():
-    print("\n\n\n")
-    FlowTitle = input("Flow Title: ")
-    FlowDate = input("Flow Date: ")
-    FlowAmount = float(input("Amount: "))
-    FlowIsExpense = input("Is Expense?: ")
-    FlowUser = input("User default(6cd25856-9a49-4a39-b9bb-3448c216c74c): ")
-    FlowDesc = input("Description: ")
-    print("Category (Values: ")
-    #GetCategory
+env_path = Path('.')/'credentials.env'
+
+load_dotenv(dotenv_path=env_path)
 
 
 
-    FlowIsCredit = input("Is Credit?: (true/flase) ")
 
-    #Code section to improve the boolean selection
-    FlowUser = "6cd25856-9a49-4a39-b9bb-3448c216c74c"
-    InsertFlow(FlowTitle,FlowAmount,FlowDate,FlowDesc,FlowUser,FlowIsExpense,FlowIsCredit)
+# def test():
+#     getListCat = GetAllCategories()
+#     arr = []
+#     for Cat in getListCat:
+#         print(Cat[1])
+#         arr.append(Cat[1])
+#     CatSelection = input("")
+#     if CatSelection in arr:
+#         print("True")
+#     else: print("False")
+
+# def AddTransaction():
+#     print("\n\n\n")
+#     FlowTitle = input("Flow Title: ")
+#     FlowDate = input("Flow Date: ")
+#     FlowAmount = float(input("Amount: "))
+#     FlowIsExpense = input("Is Expense?: ")
+#     FlowUser = input("User default(6cd25856-9a49-4a39-b9bb-3448c216c74c): ")
+#     FlowDesc = input("Description: ")
+#     print("Category (Values: ")
+#     #GetCategory
 
 
-    print("\n\n\n Finish")
 
-def AddCard():
-    #Add a additional information/details about the card in case that the user has two or more cards of the same card issuer
-    #Add the user feature so the program can display only the cards of THIS User
-    print("\n\n\n\n")
-    while True:
-        CardName = input("Card Name (Visa/MasterCard, etc): ")
-        print(f"Do you want to save this card {CardName} ? ")
-        promptComfirm = input("Y/N? ")
-        if promptComfirm.capitalize() == 'Y':
-            InsertCard(CardName)
-            break
-        elif promptComfirm.capitalize() == 'N':
-            break
-        else:
-            print("Please enter a Valid Option.")
+#     FlowIsCredit = input("Is Credit?: (true/flase) ")
+
+#     #Code section to improve the boolean selection
+#     FlowUser = "6cd25856-9a49-4a39-b9bb-3448c216c74c"
+#     InsertFlow(FlowTitle,FlowAmount,FlowDate,FlowDesc,FlowUser,FlowIsExpense,FlowIsCredit)
+
+
+#     print("\n\n\n Finish")
+
+# def AddCard():
+#     #Add a additional information/details about the card in case that the user has two or more cards of the same card issuer
+#     #Add the user feature so the program can display only the cards of THIS User
+#     print("\n\n\n\n")
+#     while True:
+#         CardName = input("Card Name (Visa/MasterCard, etc): ")
+#         print(f"Do you want to save this card {CardName} ? ")
+#         promptComfirm = input("Y/N? ")
+#         if promptComfirm.capitalize() == 'Y':
+#             InsertCard(CardName)
+#             break
+#         elif promptComfirm.capitalize() == 'N':
+#             break
+#         else:
+#             print("Please enter a Valid Option.")
             
-def AddCategory():
-    print("\n\n\n")
-    while True:
-        categoryName = input("Name of the Category: ")
-        print(f"Do you want to save this catogory name : {categoryName} ?" )
-        promptComfirm = input("Y/N? ")
-        if promptComfirm.capitalize() == 'Y':
-            InsertCategory(categoryName)
-            break
-        elif promptComfirm.capitalize() == 'N':
-            break
-        else:
-            print("Please enter a Valid Option.")
+# def AddCategory():
+#     print("\n\n\n")
+#     while True:
+#         categoryName = input("Name of the Category: ")
+#         print(f"Do you want to save this catogory name : {categoryName} ?" )
+#         promptComfirm = input("Y/N? ")
+#         if promptComfirm.capitalize() == 'Y':
+#             InsertCategory(categoryName)
+#             break
+#         elif promptComfirm.capitalize() == 'N':
+#             break
+#         else:
+#             print("Please enter a Valid Option.")
         
 
-def AddCar():
-    print("\n\n\n")
-    CarBrand = input("Car Brand:")
-    CarModel = input("Car Model: ")
-    CarYear = int(input("Car Year: "))
-    Car_Owner = input("Car Owner: ")
+# def AddCar():
+#     print("\n\n\n")
+#     CarBrand = input("Car Brand:")
+#     CarModel = input("Car Model: ")
+#     CarYear = int(input("Car Year: "))
+#     Car_Owner = input("Car Owner: ")
 
 
-    print("\n\n\n")
+#     print("\n\n\n")
 
-    print(f"The follow car info: {CarBrand} {CarModel} {CarYear} and the owner is {Car_Owner}.")
+#     print(f"The follow car info: {CarBrand} {CarModel} {CarYear} and the owner is {Car_Owner}.")
 
-    InsertNewCar(CarBrand,CarModel,CarYear,Car_Owner)
+#     InsertNewCar(CarBrand,CarModel,CarYear,Car_Owner)
 
-def AddCarLog():
-    print("\n\n\n")
-    CarID = input("Car ID: ")
-    CarServiceTitle = input("Service Title: ")
-    CarServiceDateCreated = input("Date Created: ")
-    CarServiceDateUpdate = input("Date Updated: ")
-    CarServiceCost = float(input('Service Cost: '))
-    CarServiceDescription = input("Description (optional): ")
+# def AddCarLog():
+#     print("\n\n\n")
+#     CarID = input("Car ID: ")
+#     CarServiceTitle = input("Service Title: ")
+#     CarServiceDateCreated = input("Date Created: ")
+#     CarServiceDateUpdate = input("Date Updated: ")
+#     CarServiceCost = float(input('Service Cost: '))
+#     CarServiceDescription = input("Description (optional): ")
     
-    print("\n\n\n")
+#     print("\n\n\n")
 
-    print(f"{CarServiceTitle} on {CarServiceDateCreated} cost {CarServiceCost} ")
+#     print(f"{CarServiceTitle} on {CarServiceDateCreated} cost {CarServiceCost} ")
 
-    InsertNewCarService(CarID,CarServiceTitle,CarServiceDateCreated,CarServiceCost,CarServiceDescription)
+#     InsertNewCarService(CarID,CarServiceTitle,CarServiceDateCreated,CarServiceCost,CarServiceDescription)
 
 
-def AddMonthlySubs():
-    print("\n\n\n")
-    SubscriptionTitle = input("Title: ")
-    SubscriptionPayDate = input("Payment Date: ")
-    SubscriptionAmout = float(input("Subscription Cost: "))
-    SubscriptionStarted = input("Date Start: ")
-    # isEnded = input("Is still running? Y/N")
+# def AddMonthlySubs():
+#     print("\n\n\n")
+#     SubscriptionTitle = input("Title: ")
+#     SubscriptionPayDate = input("Payment Date: ")
+#     SubscriptionAmout = float(input("Subscription Cost: "))
+#     SubscriptionStarted = input("Date Start: ")
+#     # isEnded = input("Is still running? Y/N")
 
-    SubscriptionDescription = input("Description (optional): ")
+#     SubscriptionDescription = input("Description (optional): ")
     
 
-    print("\n\n\n")
-    print(f"Sub: {SubscriptionTitle} paydate: {SubscriptionPayDate} cost: {SubscriptionAmout} Subscription dstarted on : {SubscriptionStarted}")
+#     print("\n\n\n")
+#     print(f"Sub: {SubscriptionTitle} paydate: {SubscriptionPayDate} cost: {SubscriptionAmout} Subscription dstarted on : {SubscriptionStarted}")
 
-    InsertNewSubscription(SubscriptionTitle,SubscriptionPayDate,SubscriptionAmout,SubscriptionStarted,SubsEnded="",SubsIsActive="True", SubsDescription=SubscriptionDescription)
-def AddCheck():
-    print("Adding a check...\n")
-    CheckPeriodStart = input("Date Start: ")
-    CheckPeriodEnds = input("Date Ends: ")
-    CheckTotalHours = float(input("Total hours: "))
-    CheckPayHour = float(input("Hour pay rate: "))
-    if CheckTotalHours > 40:
-        payment = CheckPayHour*(40 + 1.5*(CheckTotalHours-40) )
-    else: payment = CheckTotalHours * CheckPayHour
+#     InsertNewSubscription(SubscriptionTitle,SubscriptionPayDate,SubscriptionAmout,SubscriptionStarted,SubsEnded="",SubsIsActive="True", SubsDescription=SubscriptionDescription)
+# def AddCheck():
+#     print("Adding a check...\n")
+#     CheckPeriodStart = input("Date Start: ")
+#     CheckPeriodEnds = input("Date Ends: ")
+#     CheckTotalHours = float(input("Total hours: "))
+#     CheckPayHour = float(input("Hour pay rate: "))
+#     if CheckTotalHours > 40:
+#         payment = CheckPayHour*(40 + 1.5*(CheckTotalHours-40) )
+#     else: payment = CheckTotalHours * CheckPayHour
 
-    #print(f"Check Info:\n{CheckPeriodStart} - {CheckPeriodEnds}\nTotal Hours: {CheckTotalHours}---> Overtime hours: {CheckTotalHours - 40} \nHour Regular Rate: {CheckPayHour}, Overtime: {CheckPayHour*1.5} \nTotal payment before deductions: {payment}")
+#     #print(f"Check Info:\n{CheckPeriodStart} - {CheckPeriodEnds}\nTotal Hours: {CheckTotalHours}---> Overtime hours: {CheckTotalHours - 40} \nHour Regular Rate: {CheckPayHour}, Overtime: {CheckPayHour*1.5} \nTotal payment before deductions: {payment}")
 
-    print("\n\nDeductions:")
-    FederalTax = float(input("Federal tax: "))
-    Medicare = float(input("Medicare: "))
-    SocNumber = float(input("Social Security: "))
-    CityTax = float(input("Total City tax: "))
+#     print("\n\nDeductions:")
+#     FederalTax = float(input("Federal tax: "))
+#     Medicare = float(input("Medicare: "))
+#     SocNumber = float(input("Social Security: "))
+#     CityTax = float(input("Total City tax: "))
     
-    # totalDeduction = float(input("Total Deduction: "))
-    sum = FederalTax + Medicare + SocNumber + CityTax
-    Percentage = (sum*100.0)/(payment)
+#     # totalDeduction = float(input("Total Deduction: "))
+#     sum = FederalTax + Medicare + SocNumber + CityTax
+#     Percentage = (sum*100.0)/(payment)
 
-    # print(f"\n\n\ntotal ded:{sum}\nPercentage: {Percentage}")
+#     # print(f"\n\n\ntotal ded:{sum}\nPercentage: {Percentage}")
 
-    InserCheck(CheckPeriodStart,CheckPeriodEnds,CheckTotalHours,CheckPayHour,payment,FederalTax,Medicare,SocNumber,CityTax,sum,Percentage)
+#     InserCheck(CheckPeriodStart,CheckPeriodEnds,CheckTotalHours,CheckPayHour,payment,FederalTax,Medicare,SocNumber,CityTax,sum,Percentage)
 
-    SaveCheckFlag = input("Do you want to save this Check on the Flow/Transaction Register?")
-    if SaveCheckFlag.upper() == 'Y':
-        title = f"Check_{CheckPeriodStart}_{CheckPeriodEnds}"
-        netPay = payment - sum
-        desc = f"Pay Check from {CheckPeriodStart} to {CheckPeriodEnds}"
-        date = input("Date Created: ")
+#     SaveCheckFlag = input("Do you want to save this Check on the Flow/Transaction Register?")
+#     if SaveCheckFlag.upper() == 'Y':
+#         title = f"Check_{CheckPeriodStart}_{CheckPeriodEnds}"
+#         netPay = payment - sum
+#         desc = f"Pay Check from {CheckPeriodStart} to {CheckPeriodEnds}"
+#         date = input("Date Created: ")
 
-        InsertFlow(title,netPay,date,desc,User='6cd25856-9a49-4a39-b9bb-3448c216c74c',isExpense='False',isCredit='False')
-        print("Save in Flow")
-        #This should be a function so i can reuse it when i call it with the car log
-        #Here we save it as Check_dateStart_to_dateEnd, the amount, and isExpense False
-    else:
-        print("None and Return")
+#         InsertFlow(title,netPay,date,desc,User='6cd25856-9a49-4a39-b9bb-3448c216c74c',isExpense='False',isCredit='False')
+#         print("Save in Flow")
+#         #This should be a function so i can reuse it when i call it with the car log
+#         #Here we save it as Check_dateStart_to_dateEnd, the amount, and isExpense False
+#     else:
+#         print("None and Return")
 
-def EditRecordFlow(flows):
-    print("\n\n\n")
-    FlowIdEdit = input("Enter ID: ")
+# def EditRecordFlow(flows):
+#     print("\n\n\n")
+#     FlowIdEdit = input("Enter ID: ")
     
-    for flow in flows:
-        if flow[0] == FlowIdEdit:
-            FlowToEdit = flow
-            findit = 1
-            break
-        else: findit = 0
+#     for flow in flows:
+#         if flow[0] == FlowIdEdit:
+#             FlowToEdit = flow
+#             findit = 1
+#             break
+#         else: findit = 0
 
-    if findit == 1 :
-        fields = []
-        print("Enter to leave the field as before.")
+#     if findit == 1 :
+#         fields = []
+#         print("Enter to leave the field as before.")
         
-        FlowTitle = input(f"Title ({FlowToEdit[1]}): ")
-        if FlowTitle == "":fields.append(FlowToEdit[1])
-        else: fields.append(FlowTitle)
+#         FlowTitle = input(f"Title ({FlowToEdit[1]}): ")
+#         if FlowTitle == "":fields.append(FlowToEdit[1])
+#         else: fields.append(FlowTitle)
     
-        FlowAmount = input(f"Amount ({FlowToEdit[2]}: ")
-        if FlowAmount == "": fields.append(FlowToEdit[2])
-        else: fields.append(float(FlowAmount))
+#         FlowAmount = input(f"Amount ({FlowToEdit[2]}: ")
+#         if FlowAmount == "": fields.append(FlowToEdit[2])
+#         else: fields.append(float(FlowAmount))
 
-        FlowDateCreated = input(f"Date Created ('MM-DD-YY') ({FlowToEdit[3]}): ")
-        if FlowDateCreated == "": fields.append(FlowToEdit[3])
-        else: fields.append(FlowDateCreated)
+#         FlowDateCreated = input(f"Date Created ('MM-DD-YY') ({FlowToEdit[3]}): ")
+#         if FlowDateCreated == "": fields.append(FlowToEdit[3])
+#         else: fields.append(FlowDateCreated)
 
-        FlowIsExpense = input(f"Is Expense? ({FlowToEdit[4]}): ")
-        if FlowIsExpense == "": fields.append(FlowToEdit[4])
-        else: fields.append(FlowIsExpense)
+#         FlowIsExpense = input(f"Is Expense? ({FlowToEdit[4]}): ")
+#         if FlowIsExpense == "": fields.append(FlowToEdit[4])
+#         else: fields.append(FlowIsExpense)
 
-        FlowIsCredit = input(f"Is Credit? ({FlowToEdit[5]}): ")
-        if FlowIsCredit == "": fields.append(FlowToEdit[5])
-        else: fields.append(FlowIsCredit)
+#         FlowIsCredit = input(f"Is Credit? ({FlowToEdit[5]}): ")
+#         if FlowIsCredit == "": fields.append(FlowToEdit[5])
+#         else: fields.append(FlowIsCredit)
 
 
-        fields.append( date.today().strftime("%Y-%d-%m"))
-        fields.append(FlowToEdit[0])
+#         fields.append( date.today().strftime("%Y-%d-%m"))
+#         fields.append(FlowToEdit[0])
 
-        UpdateFlow(fields)
+#         UpdateFlow(fields)
 
         
         
@@ -203,52 +213,52 @@ def EditRecordFlow(flows):
 
 
 
-def ListAllTransaction(UserID):
-    transaction = GetAllFlow()
-    print(tabulate(transaction,headers=["Flow ID","Title", "Amount $ ","Date Created","Expense","Credit"],tablefmt="fancy_grid"))
-    #total(income,expense,credit,debit)
-    total = [0.0,0.0,0.0,0.0]
-    for flow in transaction:
-        if flow[4]:
-            #Is expense
-            total[1] = total[1] + flow[2]
-            if flow[5]:
-                total[2] = total[2] + flow[2]
-            else:
-                total[3]= total[3] + flow[2]
-        else:
-            #Is income
-            total[0] = total[0] + flow[2]
-    print(f"Total Income: ${total[0]}\nTotal Expense: ${total[1]}\nTotal Credit: ${total[2]}\nTotal Debit: ${total[3]}")
+# def ListAllTransaction(UserID):
+#     transaction = GetAllFlow()
+#     print(tabulate(transaction,headers=["Flow ID","Title", "Amount $ ","Date Created","Expense","Credit"],tablefmt="fancy_grid"))
+#     #total(income,expense,credit,debit)
+#     total = [0.0,0.0,0.0,0.0]
+#     for flow in transaction:
+#         if flow[4]:
+#             #Is expense
+#             total[1] = total[1] + flow[2]
+#             if flow[5]:
+#                 total[2] = total[2] + flow[2]
+#             else:
+#                 total[3]= total[3] + flow[2]
+#         else:
+#             #Is income
+#             total[0] = total[0] + flow[2]
+#     print(f"Total Income: ${total[0]}\nTotal Expense: ${total[1]}\nTotal Credit: ${total[2]}\nTotal Debit: ${total[3]}")
 
-    while True:
-        optionVar = input(" 1 : Back to main menu\n 2 : Edit a record\n")
-        if optionVar == '1':
-            os.system('clear')
-            break
-        elif optionVar == '2':
-            EditRecordFlow(transaction)
-            break
+#     while True:
+#         optionVar = input(" 1 : Back to main menu\n 2 : Edit a record\n")
+#         if optionVar == '1':
+#             os.system('clear')
+#             break
+#         elif optionVar == '2':
+#             EditRecordFlow(transaction)
+#             break
         
-def ListAllChecks():
-    checksList = GetAllChecks()
-    CheckHeader = ['ID','Start','End','Hours','Pay','Total','FedTax','Medicare','SocSec','CityTax','Total Tax','Tax%']
-    print(tabulate(checksList,headers=CheckHeader,tablefmt='grid'))
+# def ListAllChecks():
+#     checksList = GetAllChecks()
+#     CheckHeader = ['ID','Start','End','Hours','Pay','Total','FedTax','Medicare','SocSec','CityTax','Total Tax','Tax%']
+#     print(tabulate(checksList,headers=CheckHeader,tablefmt='grid'))
 
 
-def ListAllSubs():
-    Subs = GetAllSubs()
-    print(tabulate(Subs,headers=['ID','Title','Cost','Pay Date','Start Date','End Date','is active','Description']))
+# def ListAllSubs():
+#     Subs = GetAllSubs()
+#     print(tabulate(Subs,headers=['ID','Title','Cost','Pay Date','Start Date','End Date','is active','Description']))
 
-def ListAllCards():
-    Cards = GetAllCards()
-    print(tabulate(Cards, headers=['ID','Title']))
+# def ListAllCards():
+#     Cards = GetAllCards()
+#     print(tabulate(Cards, headers=['ID','Title']))
 
-def ListAllCategories():
-    Categories = GetAllCategories()
-    # print(tabulate(Categories, headers=['ID','Title']))
-    print(Categories[1])
-    print(type(Categories))
+# def ListAllCategories():
+#     Categories = GetAllCategories()
+#     # print(tabulate(Categories, headers=['ID','Title']))
+#     print(Categories[1])
+#     print(type(Categories))
 
 
 def EntryData(tableStrc):
@@ -287,7 +297,13 @@ def EntryData(tableStrc):
 
 if __name__ == '__main__':
     print("\n\nWelcome to your personal App")
-    db = DatabaseManager(db_name="PersonalDB",user="postgres",password='Marcelomanda2020')
+    db_name = os.getenv("DB_NAME")
+    db_user = os.getenv("DB_USER")
+    db_password = os.getenv("DB_PASSWORD")
+    db_host = os.getenv("DB_HOST")
+    db_port = os.getenv("DB_PORT")
+
+    db = DatabaseManager(db_name,db_user,db_password,db_host,db_port)
 
     tableStructure = {
         #Table Structure/ and pseudo names
