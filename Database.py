@@ -9,7 +9,6 @@ conn= None
 
 class DatabaseManager:
     def __init__(self,db_name,db_user,db_password,db_host,db_port):
-        print(f"{db_name},{db_user},{db_password},{db_port},{db_host}")
         self.connection  = psycopg2.connect(
             dbname = db_name,
             user =db_user,
