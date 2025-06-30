@@ -18,6 +18,7 @@ def EntryData(tablesStrc,tblNumber,tablNames):
     colsName = tuple(tablesStrc[tblNumber].keys())
     colsPseudo = tuple(tablesStrc[tblNumber].values())
     values = []
+    
     for col in range(len(colsName)):
         print(colsPseudo[col].split('-')[0])
         if colsPseudo[col].split('-')[1] == 'F':print('is Float')
@@ -26,45 +27,12 @@ def EntryData(tablesStrc,tblNumber,tablNames):
         elif colsPseudo[col].split('-')[1] == 'B':print('is Boolean')
         elif 'K' in colsPseudo[col].split('-')[1] :
             colFK = colsPseudo[col].split('-')[1][1]
-            foreignTable = db.Read(tablNames.get(colFK)[1])
-            print(tabulate(foreignTable))
+            if colFK == '0': foreignTable = ['Manteinance','Repair','Gas']
+            else:foreignTable = db.Read(tablNames.get(colFK)[1],tuple(head[colFK].keys()))
+            print(tabulate(foreignTable,headers=head[colFK].values()))
         elif colsPseudo[col].split('-')[1] == 'D':print('is Date format')
         elif colsPseudo[col].split('-')[1] == 'NF':print('is No input Float')
         print(' ')
-         
-
-        # if 'UUID' in colsPseudo[col] and col == 0:values.append(str(uuid.uuid4()))
-        # elif 'NonIn' in colsPseudo[col] and 'Total Payment' in colsPseudo[col] :
-        #     if values[3] > 40:
-        #         val1 = values[4] * (values[3]*1.5 -20)
-        #         # val1 = values[4]*(40 + (values[3]-40)*1.5)
-        #         values.append(val1)
-        #     else: values.append(values[3]*values[4])
-        # elif 'NonIn' in colsPseudo[col] and 'Total Deduction' in colsPseudo[col] :
-        #     val2 = values[6] + values[7] +values[8] + values[9]
-        #     values.append(val2)
-        # elif 'NonIn' in colsPseudo[col] and 'Percentage' in colsPseudo[col] :
-        #     val3 = (values[10]*100)/values[5]
-        #     values.append(val3)
-        # elif 'NonIn' in colsPseudo[col] and 'Net Pay' in colsPseudo[col] :
-        #     values.append(values[5] - values[10])
-        # elif 'Updated' in colsPseudo[col]:
-        #     values.append(date.today().strftime("%m-%d-%Y")) 
-
-
-        # else:
-        #     valueInput = input(f"Enter {colsPseudo[col]}: ")
-        #     if 'int' in colsPseudo[col]: 
-        #         values.append(int(valueInput))
-        #     elif 'float' in colsPseudo[col]: values.append(float(valueInput))
-            
-        #     else: values.append(valueInput)
-
-    # return values
-    
-
-    
-
 
 
 if __name__ == '__main__':
@@ -77,6 +45,26 @@ if __name__ == '__main__':
 
     db = DatabaseManager(db_name,db_user,db_password,db_host,db_port)
 
+    head = {
+        "7":{
+            "user_id":"User ID",
+            "user_username": "Username"
+        },
+        "3":{
+            "card_id":"Card ID",
+            "cardname":"Card Name"
+        },
+        "4":{
+            "category_id":"Category ID",
+            "categoryname":"Category Name"
+
+        },
+        "6":{
+            "car_id":"Car ID",
+            "carbrand":"Car Brand",
+            "carmodel":"Car Model"
+        }
+    }
     tableStructure = {
         #Table Structure/ and pseudo names
         # "1": {"CheckID":"Check ID (UUID PK)", "CheckStart": "Start Date", "CheckeEnd":"End Date", "CheckTotalHours":"Total Hours (float)", "CheckRegularPayment":"Reg Payment (float)","CheckTotalPayment":"Total Payment (float)","CheckFederalTax":"Federal Tax (float)","CheckMedicare":"Medicare (float)","CheckSocSec":"Social Security (float)","CheckCityTax":"City Tax (float)","CheckTotalDeduction":"Total Deduction (float)","CheckPercentage":"Percentage (float)"},
@@ -120,7 +108,7 @@ if __name__ == '__main__':
 
         "5": {
             # "car_service_id": "ID (UUID)",
-              "car_id": "Car ID: -K",
+              "car_id": "Car ID: -K6",
               "car_service_title": "Title: -S",
               "car_service_cost":"Cost: -F",
               "car_service_date_created":"Date Created: -D",
@@ -142,7 +130,7 @@ if __name__ == '__main__':
         "3": ("Cards","cards"),
         "4": ("Categories","categories"),
         "5": ("Cars Services", "carservices"),
-        "6": ("Car List","carlists"),
+        "6": ("Car List","carlist"),
         "7" : ("Users","users")
     }
 
@@ -245,5 +233,4 @@ if __name__ == '__main__':
 #Car ID 5f3637b4-b983-4370-bb84-33e659a07a4c
     
 
-#THE UUID FIELD AUTO ENTER AND GENERATE
-#Customize each input data 
+
