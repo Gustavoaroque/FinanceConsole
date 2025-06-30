@@ -35,8 +35,12 @@ class DatabaseManager:
         self.cursor.execute(sqlquery,data)
         self.connection.commit()
         
-    def Read(self,table):
-        sqlquery = f"SELECT * FROM {table};"
+    def Read(self,table,columns = []):
+        if columns == []:
+            sqlquery = f"SELECT * FROM {table};"
+        else:
+            cols = ", ".join(columns) 
+            sqlquery = f"SELECT {cols} FROM {table}"
         self.cursor.execute(sqlquery)
         return self.cursor.fetchall()
 
